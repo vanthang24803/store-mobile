@@ -1,46 +1,65 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React from "react";
 import Color from "../../constant/Color";
 import { formatPrice, price } from "../../utils/format";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Card({ product }) {
-  return (
-    <View style={styles.container}>
-      <Image
-        source={{
-          uri: `${product.thumbnail}`,
-        }}
-        style={styles.image}
-      />
-      <View style={styles.content}>
-        <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
-          {product.name}
-        </Text>
-        <View style={styles.row}>
-          <Text style={styles.options}>{product.options.length} phiên bản</Text>
-          {product.options[0].sale > 0 && (
-            <View style={styles.sale}>
-              <Text style={styles.saleText}>{product.options[0].sale}%</Text>
-            </View>
-          )}
-        </View>
+  const navigator = useNavigation();
 
-        <View style={styles.row}>
-          <Text style={styles.priceSale}>
-            {formatPrice(product.options[0].price, product.options[0].sale)}₫
+  return (
+    <TouchableWithoutFeedback
+      onPress={() =>
+        navigator.navigate("ProductDetail", { productId: product.id })
+      }
+    >
+      <View style={styles.container}>
+        <Image
+          source={{
+            uri: `${product.thumbnail}`,
+          }}
+          style={styles.image}
+        />
+        <View style={styles.content}>
+          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+            {product.name}
           </Text>
-          {product.options[0].sale > 0 && (
-            <Text style={styles.price}>{price(product.options[0].price)}₫</Text>
-          )}
+          <View style={styles.row}>
+            <Text style={styles.options}>
+              {product.options.length} phiên bản
+            </Text>
+            {product.options[0].sale > 0 && (
+              <View style={styles.sale}>
+                <Text style={styles.saleText}>{product.options[0].sale}%</Text>
+              </View>
+            )}
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.priceSale}>
+              {formatPrice(product.options[0].price, product.options[0].sale)}₫
+            </Text>
+            {product.options[0].sale > 0 && (
+              <Text style={styles.price}>
+                {price(product.options[0].price)}₫
+              </Text>
+            )}
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    height: 280,
     backgroundColor: Color.WHITE,
     borderRadius: 6,
   },
@@ -62,7 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 4,
+    marginTop: 5,
   },
   price: {
     fontSize: 12,

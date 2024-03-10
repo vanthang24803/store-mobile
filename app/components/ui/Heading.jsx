@@ -23,7 +23,7 @@ export default function Heading({ title, next }) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    marginHorizontal: 12,
+    marginHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

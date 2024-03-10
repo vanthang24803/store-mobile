@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 12,
     marginTop: 10,
-    marginBottom: 60,
+    marginBottom: 70,
     flexDirection: "row",
     flexWrap: "wrap",
   },

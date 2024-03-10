@@ -26,6 +26,7 @@ const screenOptions = {
 };
 
 export default function BottomNavigation() {
+
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen

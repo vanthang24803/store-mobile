@@ -3,6 +3,7 @@ export default {
   Neutral : "#e5e5e5",
   BLACK: "#000000",
   RED: "#F83758",
-  CYAN : "#7dd3fc",
-  WHITE: "#fff"
+  CYAN : "#0369a1",
+  WHITE: "#fff",
+  Primary : "#417505"
 };
