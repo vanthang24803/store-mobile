@@ -7,7 +7,7 @@ import {
 export default function Cart() {
   return (
     <SafeAreaView> 
-      <Text>Cart</Text>
+      <Text>Cart 1</Text>
     </SafeAreaView>
   )
 }

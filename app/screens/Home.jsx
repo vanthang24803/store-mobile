@@ -1,16 +1,60 @@
 import React from "react";
-import { View } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Appbar from "../components/Appbar";
 
-import styles from "../style/home.style";
+import SearchComponent from "../components/Search";
+import Carousel from "../components/Carousel";
+import axios from "axios";
+import Heading from "../components/ui/Heading";
+import ListProduct from "../components/ListProduct";
 
-export default function Home({ navigation }) {
+export default function Home() {
+  const [billboard, setBillboard] = React.useState([]);
+  const [products, setProducts] = React.useState([]);
+
+  const fetchData = async () => {
+    const response = await axios.get(
+      `https://f694-14-191-31-40.ngrok-free.app/api/product/billboard`
+    );
+    if (response.status == 200) {
+      setBillboard(response.data);
+    }
+  };
+
+  const fetchProduct = async () => {
+    const response = await axios.get(
+      `https://f694-14-191-31-40.ngrok-free.app/api/product`
+    );
+    if (response.status == 200) {
+      setProducts(response.data);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+
+    fetchProduct();
+  }, []);
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Appbar navigation={navigation} />
+        <Appbar />
       </View>
+      <ScrollView>
+        <SearchComponent />
+        <Carousel billboard={billboard} />
+        <Heading title="Sản phẩm mới cập nhật" />
+        <ListProduct products={products} />
+      </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 22,
+    marginTop: 12,
+  },
+});

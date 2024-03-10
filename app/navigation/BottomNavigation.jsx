@@ -1,5 +1,5 @@
 import React from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import Color from "../constant/Color";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,6 +8,8 @@ import { Home, Profile, Search, Cart } from "../screens";
 import { View, Text, StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
+
+let totalItems = 99;
 
 const screenOptions = {
   tabBarShowLabel: false,
@@ -79,11 +81,16 @@ export default function BottomNavigation() {
           tabBarIcon: ({ focused }) => {
             return (
               <View style={styles.iconContainer}>
-                <Ionicons
-                  name={focused ? "cart" : "cart-outline"}
+                <Feather
+                  name={"shopping-cart"}
                   size={24}
                   color={focused ? Color.BLACK : Color.GRAY}
                 />
+                {totalItems > 0 && (
+                  <View style={styles.badgeContainer}>
+                    <Text style={styles.badgeText}>{totalItems}</Text>
+                  </View>
+                )}
                 <Text
                   style={focused ? styles.iconTextFocus : styles.iconTextBase}
                 >
@@ -135,5 +142,21 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "600",
     color: Color.GRAY,
+  },
+  badgeContainer: {
+    position: "absolute",
+    right: -10,
+    top: -4,
+    backgroundColor: Color.RED,
+    borderRadius: 8,
+    width: 18,
+    height: 18,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  badgeText: {
+    color: "white",
+    fontSize: 11,
+    fontWeight: "600",
   },
 });

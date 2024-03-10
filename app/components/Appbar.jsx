@@ -4,12 +4,12 @@ import { View, StyleSheet } from "react-native";
 import Avatar from "./ui/Avatar";
 import Logo from "./ui/Logo";
 
-const Appbar = ({ navigation }) => {
+const Appbar = () => {
   return (
     <View style={styles.appBar}>
       <Ionicons name="menu-sharp" size={28} />
       <Logo />
-      <Avatar navigation={navigation} />
+      <Avatar />
     </View>
   );
 };
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingBottom: 15,
   },
 });
 

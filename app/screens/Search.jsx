@@ -1,11 +1,12 @@
-import { Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SearchComponent from "../components/Search";
 
 export default function Search() {
+  const [searchValue, setSearchValue] = React.useState("");
   return (
     <SafeAreaView>
-      <Text>Search</Text>
+      <SearchComponent search={searchValue} setSearch={setSearchValue} />
     </SafeAreaView>
   );
 }
