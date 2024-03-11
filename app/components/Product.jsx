@@ -65,7 +65,7 @@ export default function Product({ product }) {
           style={{
             position: "absolute",
             top: 45,
-            right: 10,
+            right: 15,
             zIndex: 999,
           }}
           onPress={() => navigation.navigate("Cart")}

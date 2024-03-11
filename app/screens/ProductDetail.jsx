@@ -1,24 +1,37 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { ScrollView, RefreshControl } from "react-native";
 import Product from "../components/Product";
-// import { API_URL } from "@env";
 
 export default function ProductDetail({ route }) {
   const { productId } = route.params;
-
   const [product, setProduct] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
-    const response = await axios.get(`https://c53d-14-191-31-40.ngrok-free.app/api/product/${productId}`);
-
+    const response = await axios.get(`https://fd39-14-191-31-40.ngrok-free.app/api/product/${productId}`);
     if (response.status == 200) {
       setProduct(response.data);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchData();
   }, []);
 
-  return <>{product && <Product product={product} />}</>;
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData().then(() => setRefreshing(false));
+  }, []);
+
+  return (
+    <ScrollView
+      contentContainerStyle={{ flex: 1 }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      {product && <Product product={product} />}
+    </ScrollView>
+  );
 }

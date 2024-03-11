@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Image,
   TouchableWithoutFeedback,
+  Pressable,
 } from "react-native";
 import React from "react";
 import Color from "../../constant/Color";
@@ -11,14 +12,15 @@ import { formatPrice, price } from "../../utils/format";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Card({ product }) {
-  const navigator = useNavigation();
+  const navigation = useNavigation();
+
+  const navigateToProductDetail = (productId) => {
+    navigation.push('ProductDetail', { productId });
+  };
+
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() =>
-        navigator.navigate("ProductDetail", { productId: product.id })
-      }
-    >
+    <Pressable onPress={() => navigateToProductDetail(product.id)}>
       <View style={styles.container}>
         <Image
           source={{
@@ -53,7 +55,7 @@ export default function Card({ product }) {
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 }
 

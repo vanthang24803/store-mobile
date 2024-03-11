@@ -8,7 +8,7 @@ export default function More({ category }) {
 
   const fetchData = async () => {
     const response = await axios.get(
-      `https://c53d-14-191-31-40.ngrok-free.app/api/product?Category=${category}`
+      `https://fd39-14-191-31-40.ngrok-free.app/api/product?Category=${category}`
     );
 
     if (response.status == 200) {

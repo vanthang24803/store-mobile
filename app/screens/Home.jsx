@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { ScrollView, View, StyleSheet, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Appbar from "../components/Appbar";
 
@@ -8,29 +8,34 @@ import Carousel from "../components/Carousel";
 import axios from "axios";
 import Heading from "../components/ui/Heading";
 import ListProduct from "../components/ListProduct";
-// import { API_URL } from "@env";
 
 export default function Home() {
-  const [billboard, setBillboard] = React.useState([]);
-  const [products, setProducts] = React.useState([]);
+  const [billboard, setBillboard] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
-    const response = await axios.get(`https://c53d-14-191-31-40.ngrok-free.app/api/product/billboard`);
+    const response = await axios.get(`https://fd39-14-191-31-40.ngrok-free.app/api/product/billboard`);
     if (response.status == 200) {
       setBillboard(response.data);
     }
   };
 
   const fetchProduct = async () => {
-    const response = await axios.get(`https://c53d-14-191-31-40.ngrok-free.app/api/product?Filter=Lasted`);
+    const response = await axios.get(`https://fd39-14-191-31-40.ngrok-free.app/api/product?Filter=Lasted`);
     if (response.status == 200) {
       setProducts(response.data);
     }
   };
 
-  React.useEffect(() => {
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
     fetchData();
+    fetchProduct().then(() => setRefreshing(false));
+  }, []);
 
+  useEffect(() => {
+    fetchData();
     fetchProduct();
   }, []);
 
@@ -39,7 +44,11 @@ export default function Home() {
       <View style={styles.container}>
         <Appbar />
       </View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <SearchComponent />
         <Carousel billboard={billboard} />
         <Heading title="Sản phẩm mới cập nhật" />
