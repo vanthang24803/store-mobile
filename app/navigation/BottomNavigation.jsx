@@ -6,10 +6,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Home, Profile, Search, Cart } from "../screens";
 import { View, Text, StyleSheet } from "react-native";
+import useCart from "../../hooks/use-cart";
 
 const Tab = createBottomTabNavigator();
 
-let totalItems = 99;
 
 const screenOptions = {
   tabBarShowLabel: false,
@@ -25,7 +25,10 @@ const screenOptions = {
   },
 };
 
+
 export default function BottomNavigation() {
+
+  const cart = useCart();
 
   return (
     <Tab.Navigator screenOptions={screenOptions}>
@@ -87,9 +90,9 @@ export default function BottomNavigation() {
                   size={24}
                   color={focused ? Color.BLACK : Color.GRAY}
                 />
-                {totalItems > 0 && (
+                {cart.items.length > 0 && (
                   <View style={styles.badgeContainer}>
-                    <Text style={styles.badgeText}>{totalItems}</Text>
+                    <Text style={styles.badgeText}>{cart.totalItems()}</Text>
                   </View>
                 )}
                 <Text
