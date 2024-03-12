@@ -9,7 +9,9 @@ export default function ProductDetail({ route }) {
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
-    const response = await axios.get(`https://fd39-14-191-31-40.ngrok-free.app/api/product/${productId}`);
+    const response = await axios.get(
+      ` https://08de-2402-800-61c4-a254-f89a-9ec7-6b11-ebdf.ngrok-free.app/api/product/${productId}`
+    );
     if (response.status == 200) {
       setProduct(response.data);
     }

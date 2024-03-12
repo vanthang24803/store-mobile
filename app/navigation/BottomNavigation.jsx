@@ -1,4 +1,3 @@
-import React from "react";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import Color from "../constant/Color";
 
@@ -9,7 +8,6 @@ import { View, Text, StyleSheet } from "react-native";
 import useCart from "../../hooks/use-cart";
 
 const Tab = createBottomTabNavigator();
-
 
 const screenOptions = {
   tabBarShowLabel: false,
@@ -25,9 +23,7 @@ const screenOptions = {
   },
 };
 
-
 export default function BottomNavigation() {
-
   const cart = useCart();
 
   return (
@@ -44,11 +40,7 @@ export default function BottomNavigation() {
                   size={24}
                   color={focused ? Color.BLACK : Color.GRAY}
                 />
-                <Text
-                  style={focused ? styles.iconTextFocus : styles.iconTextBase}
-                >
-                  Home
-                </Text>
+                {focused && <Text style={styles.iconTextFocus}>Home</Text>}
               </View>
             );
           },
@@ -67,11 +59,7 @@ export default function BottomNavigation() {
                   size={24}
                   color={focused ? Color.BLACK : Color.GRAY}
                 />
-                <Text
-                  style={focused ? styles.iconTextFocus : styles.iconTextBase}
-                >
-                  Search
-                </Text>
+                {focused && <Text style={styles.iconTextFocus}>Search</Text>}
               </View>
             );
           },
@@ -92,14 +80,12 @@ export default function BottomNavigation() {
                 />
                 {cart.items.length > 0 && (
                   <View style={styles.badgeContainer}>
-                    <Text style={styles.badgeText}>{cart.totalItems()}</Text>
+                    <Text style={styles.badgeText}>
+                      {cart.totalItems() > 99 ? '...' : cart.totalItems()}
+                    </Text>
                   </View>
                 )}
-                <Text
-                  style={focused ? styles.iconTextFocus : styles.iconTextBase}
-                >
-                  Cart
-                </Text>
+                {focused && <Text style={styles.iconTextFocus}>Cart</Text>}
               </View>
             );
           },
@@ -118,11 +104,7 @@ export default function BottomNavigation() {
                   size={24}
                   color={focused ? Color.BLACK : Color.GRAY}
                 />
-                <Text
-                  style={focused ? styles.iconTextFocus : styles.iconTextBase}
-                >
-                  Profile
-                </Text>
+                {focused && <Text style={styles.iconTextFocus}>Profile</Text>}
               </View>
             );
           },

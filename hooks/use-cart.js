@@ -1,19 +1,7 @@
 import { create } from "zustand";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useCart = create((set, get) => ({
   items: [],
-
-  loadCart: async () => {
-    try {
-      const storedCart = await AsyncStorage.getItem('@cart');
-      if (storedCart) {
-        set({ items: JSON.parse(storedCart) });
-      }
-    } catch (error) {
-      console.error('Error loading cart from AsyncStorage:', error);
-    }
-  },
 
   totalItems: () => {
     return get().items.reduce((total, item) => total + item.quantity, 0);
@@ -31,7 +19,7 @@ const useCart = create((set, get) => ({
     );
   },
 
-  addItems: async (data, quantity = 1) => {
+  addItems: (data, quantity = 1) => {
     const currentItems = get().items;
     const existingItemIndex = currentItems.findIndex(
       (item) =>
@@ -45,10 +33,9 @@ const useCart = create((set, get) => ({
     } else {
       set({ items: [...get().items, { product: data, quantity }] });
     }
-    await AsyncStorage.setItem('@cart', JSON.stringify(get().items));
   },
 
-  removeItem: async (id, optionId) => {
+  removeItem: (id, optionId) => {
     set({
       items: [
         ...get().items.filter(
@@ -57,10 +44,9 @@ const useCart = create((set, get) => ({
         ),
       ],
     });
-    await AsyncStorage.setItem('@cart', JSON.stringify(get().items));
   },
 
-  updateQuantity: async (id, optionId, quantity) => {
+  updateQuantity: (id, optionId, quantity) => {
     const currentItems = get().items;
     const existingItemIndex = currentItems.findIndex(
       (item) =>
@@ -72,14 +58,12 @@ const useCart = create((set, get) => ({
       updatedItems[existingItemIndex].quantity = quantity;
       set({ items: updatedItems });
     }
-    await AsyncStorage.setItem('@cart', JSON.stringify(get().items));
   },
 
-  removeAll: async () => {
+  removeAll: () => {
     set({
       items: [],
     });
-    await AsyncStorage.removeItem('@cart');
   },
 }));
 

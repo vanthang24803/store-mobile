@@ -9,16 +9,16 @@ import {
 } from "react-native";
 import Swiper from "react-native-swiper";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import Color from "../constant/Color";
 import { formatPrice, price } from "../utils/format";
 import React, { useState } from "react";
 import useCart from "../../hooks/use-cart";
 import More from "./More";
+import BackButton from "./ui/BackButton";
 export default function Product({ product }) {
   const navigation = useNavigation();
   const [currentIndex, setCurrentIndex] = useState(0);
-
 
   const [show, setShow] = useState(false);
 
@@ -39,28 +39,7 @@ export default function Product({ product }) {
       }}
     >
       <ScrollView>
-        <TouchableOpacity
-          style={{
-            position: "absolute",
-            top: 45,
-            left: 10,
-            zIndex: 999,
-          }}
-          onPress={() => navigation.goBack()}
-        >
-          <View
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 999,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: Color.WHITE,
-            }}
-          >
-            <Ionicons name="arrow-back" size={20} color="black" />
-          </View>
-        </TouchableOpacity>
+        <BackButton />
         <TouchableOpacity
           style={{
             position: "absolute",
@@ -439,11 +418,8 @@ export default function Product({ product }) {
               )}
             </View>
           </View>
-                      
 
-       <More category={product.categories[0].name} />
-
-          
+          <More category={product.categories[0].name} />
         </ScrollView>
       </ScrollView>
 

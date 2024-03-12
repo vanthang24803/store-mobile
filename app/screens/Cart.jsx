@@ -1,17 +1,27 @@
-import { Text, StyleSheet, View, ScrollView, Image } from "react-native";
 import React from "react";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+  Pressable,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Color from "../constant/Color";
 import useCart from "../../hooks/use-cart";
 import { Feather } from "@expo/vector-icons";
 import { formatPrice, price } from "../utils/format";
 import UpdateCart from "../components/UpdateCart";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Cart() {
   const cart = useCart();
 
+  const router = useNavigation();
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text
           style={{
@@ -40,7 +50,11 @@ export default function Cart() {
           sản phẩm trong giỏ
         </Text>
       </View>
-      <ScrollView>
+      <ScrollView
+        style={{
+          marginBottom: 50,
+        }}
+      >
         {cart.items.map((item, index) => (
           <View
             key={index}
@@ -167,9 +181,69 @@ export default function Cart() {
             </View>
           </View>
         ))}
-       
       </ScrollView>
-      
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          left: 0,
+          elevation: 0,
+          height: 60,
+        }}
+      >
+        <View
+          style={{
+            height: 0.25,
+            backgroundColor: Color.GRAY,
+          }}
+        ></View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            marginTop: 10,
+          }}
+        >
+          <Text>
+            Thành tiền :{" "}
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              {price(cart.totalPrice())}₫
+            </Text>
+          </Text>
+          <Pressable
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              paddingVertical: 12,
+              paddingHorizontal: 12,
+              borderRadius: 6,
+              elevation: 4,
+              backgroundColor: Color.Primary,
+              marginHorizontal: 8,
+            }}
+            onPress={() => router.navigate("Checkout")}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "600",
+                letterSpacing: 0.25,
+                color: "white",
+              }}
+            >
+              Thanh toán
+            </Text>
+          </Pressable>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }

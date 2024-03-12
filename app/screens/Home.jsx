@@ -15,14 +15,18 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
-    const response = await axios.get(`https://fd39-14-191-31-40.ngrok-free.app/api/product/billboard`);
+    const response = await axios.get(
+      ` https://08de-2402-800-61c4-a254-f89a-9ec7-6b11-ebdf.ngrok-free.app/api/product/billboard`
+    );
     if (response.status == 200) {
       setBillboard(response.data);
     }
   };
 
   const fetchProduct = async () => {
-    const response = await axios.get(`https://fd39-14-191-31-40.ngrok-free.app/api/product?Filter=Lasted`);
+    const response = await axios.get(
+      ` https://08de-2402-800-61c4-a254-f89a-9ec7-6b11-ebdf.ngrok-free.app/api/product?Filter=Lasted`
+    );
     if (response.status == 200) {
       setProducts(response.data);
     }
