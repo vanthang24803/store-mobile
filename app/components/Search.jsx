@@ -4,7 +4,7 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import Color from "../constant/Color";
 import { useNavigation } from "@react-navigation/native";
 
-const SearchComponent = ({ search, setSearch }) => {
+const SearchComponent = () => {
   const navigator = useNavigation();
 
   return (
@@ -14,8 +14,7 @@ const SearchComponent = ({ search, setSearch }) => {
       </TouchableOpacity>
       <View style={styles.searchWrapper}>
         <TextInput
-          value={search}
-          onChangeText={setSearch}
+          value=""
           onPressIn={() => navigator.navigate("Search")}
           placeholder="Search your product..."
           style={styles.inputSearch}
