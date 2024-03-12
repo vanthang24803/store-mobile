@@ -5,9 +5,9 @@ import Appbar from "../components/Appbar";
 
 import SearchComponent from "../components/Search";
 import Carousel from "../components/Carousel";
-import axios from "axios";
 import Heading from "../components/ui/Heading";
 import ListProduct from "../components/ListProduct";
+import api from "../utils/api";
 
 export default function Home() {
   const [billboard, setBillboard] = useState([]);
@@ -15,18 +15,14 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
-    const response = await axios.get(
-      ` https://08de-2402-800-61c4-a254-f89a-9ec7-6b11-ebdf.ngrok-free.app/api/product/billboard`
-    );
+    const response = await api.get(`/api/product/billboard`);
     if (response.status == 200) {
       setBillboard(response.data);
     }
   };
 
   const fetchProduct = async () => {
-    const response = await axios.get(
-      ` https://08de-2402-800-61c4-a254-f89a-9ec7-6b11-ebdf.ngrok-free.app/api/product?Filter=Lasted`
-    );
+    const response = await api.get(`/api/product?Filter=Lasted`);
     if (response.status == 200) {
       setProducts(response.data);
     }

@@ -1,14 +1,14 @@
-import axios from "axios";
 import React from "react";
 import { Text, View , StyleSheet } from "react-native";
 import Card from "./ui/Card";
+import api from "../utils/api";
 
 export default function More({ category }) {
   const [data, setData] = React.useState([]);
 
   const fetchData = async () => {
-    const response = await axios.get(
-      `https://08de-2402-800-61c4-a254-f89a-9ec7-6b11-ebdf.ngrok-free.app/api/product?Category=${category}`
+    const response = await api.get(
+      `/api/product?Category=${category}`
     );
 
     if (response.status == 200) {

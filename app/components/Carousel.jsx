@@ -5,7 +5,7 @@ import Swiper from "react-native-swiper";
 const Carousel = ({ billboard }) => {
   return (
     <View style={styles.container}>
-      <Swiper autoplay={true} autoplayTimeout={10} loop={true} showsPagination={false}>
+      <Swiper autoplay={true} autoplayTimeout={1} loop={true} showsPagination={false}>
         {billboard.map((item, index) => (
           <Image
             key={index}
