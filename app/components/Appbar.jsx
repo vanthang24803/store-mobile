@@ -7,9 +7,9 @@ import Logo from "./ui/Logo";
 const Appbar = () => {
   return (
     <View style={styles.appBar}>
-      <Ionicons name="menu-sharp" size={28} />
+      <Ionicons name="bag-outline" size={28} />
       <Logo />
-      <Avatar />
+      <Avatar size={36} />
     </View>
   );
 };
